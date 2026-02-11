@@ -73,10 +73,81 @@
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
-            max-width: 200px;
+            max-width: 250px;
         }
         .music-tooltip.show {
             opacity: 1;
+        }
+        /* 歌词显示区域 */
+        .lyrics-container {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 600px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px 30px;
+            z-index: 1000;
+            box-shadow: 0 10px 40px rgba(255, 107, 157, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .lyrics-container:hover {
+            background: rgba(0, 0, 0, 0.85);
+        }
+        .lyrics-title {
+            color: #ff9ff3;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            text-align: center;
+            opacity: 0.8;
+        }
+        .lyrics-wrapper {
+            height: 80px;
+            overflow: hidden;
+            position: relative;
+        }
+        .lyrics-list {
+            transition: transform 0.5s ease;
+        }
+        .lyric-line {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.1rem;
+            line-height: 2;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .lyric-line.active {
+            color: #ff9ff3;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(255, 159, 243, 0.8);
+        }
+        .lyrics-toggle {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 5px;
+            transition: all 0.3s ease;
+        }
+        .lyrics-toggle:hover {
+            color: #ff9ff3;
+        }
+        .lyrics-container.hidden {
+            transform: translateX(-50%) translateY(150%);
+            opacity: 0;
         }
         .container {
             position: relative;
@@ -85,6 +156,7 @@
             margin: 0 auto;
             padding: 40px 20px;
             text-align: center;
+            padding-bottom: 150px;
         }
         .header {
             margin-bottom: 50px;
@@ -344,24 +416,12 @@
             margin-bottom: 15px;
         }
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .footer {
             margin-top: 80px;
@@ -378,37 +438,18 @@
             50% { transform: scale(1.2); }
         }
         @media (max-width: 768px) {
-            .main-title {
-                font-size: 2.2rem;
-            }
-            .timer {
-                gap: 10px;
-            }
-            .time-box {
-                padding: 15px 15px;
-                min-width: 70px;
-            }
-            .time-number {
-                font-size: 2rem;
-            }
-            .timeline::before {
-                left: 20px;
-            }
-            .timeline-dot {
-                left: 20px;
-            }
-            .timeline-content {
-                width: calc(100% - 60px);
-                margin-left: 50px !important;
-            }
-            .content-card {
-                padding: 30px 20px;
-            }
-            .music-control {
-                width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
-            }
+            .main-title { font-size: 2.2rem; }
+            .timer { gap: 10px; }
+            .time-box { padding: 15px 15px; min-width: 70px; }
+            .time-number { font-size: 2rem; }
+            .timeline::before { left: 20px; }
+            .timeline-dot { left: 20px; }
+            .timeline-content { width: calc(100% - 60px); margin-left: 50px !important; }
+            .content-card { padding: 30px 20px; }
+            .music-control { width: 50px; height: 50px; font-size: 1.5rem; }
+            .lyrics-container { width: 95%; padding: 15px 20px; }
+            .lyric-line { font-size: 1rem; }
+            .lyric-line.active { font-size: 1.2rem; }
         }
         .surprise-message {
             position: fixed;
@@ -469,14 +510,17 @@
     </style>
 </head>
 <body>
-    <audio id="bgMusic" loop autoplay>
+    <audio id="bgMusic" loop>
         <source src="三周年素材/A%20Thousand%20Years-Christina%20Perri.mp3" type="audio/mpeg">
     </audio>
+    
     <button class="music-control" id="musicBtn" onclick="toggleMusic()">🎵</button>
     <div class="music-tooltip" id="musicTooltip">A Thousand Years - Christina Perri</div>
+    
     <div class="stars" id="stars"></div>
     <div class="hearts" id="hearts"></div>
     <canvas id="fireworks"></canvas>
+    
     <div class="container">
         <header class="header">
             <h1 class="main-title">小彩金，两周年快乐！</h1>
@@ -486,6 +530,7 @@
                 <span id="totalDays" style="font-size: 2rem; color: #ff9ff3; font-weight: bold;">0</span> 天
             </p>
         </header>
+        
         <div class="timer" id="timer">
             <div class="time-box">
                 <div class="time-number" id="years">0</div>
@@ -508,6 +553,7 @@
                 <div class="time-label">秒</div>
             </div>
         </div>
+        
         <div class="content-card">
             <h2>致我最爱的小彩金</h2>
             <div class="love-text">
@@ -518,9 +564,11 @@
             </div>
             <div class="quote">小彩金，你是我这一生只会遇见一次的惊喜，是我想要守护一生的挚爱。</div>
         </div>
+        
         <div class="btn-container">
             <button class="surprise-btn" onclick="showSurprise()">小彩金，点击查看我们的回忆</button>
         </div>
+        
         <div class="content-card">
             <h2>我们的两年时光</h2>
             <p style="margin-bottom: 40px;">每一个日期，都是我们爱情故事中的一页</p>
@@ -606,6 +654,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="content-card">
             <h2>我们的未来</h2>
             <div class="love-text">
@@ -615,37 +664,165 @@
             </div>
             <div class="quote">从前的日色变得慢，车、马、邮件都慢，一生只够爱一个人。<br>小彩金，在这个快节奏的时代，我想慢慢地、好好地爱你一辈子。</div>
         </div>
+        
         <footer class="footer">
             <p style="font-size: 1.2rem;">Made with <span class="heart">❤️</span> for 小彩金</p>
             <p style="margin-top: 15px;">点击屏幕任意位置可以燃放烟花，为小彩金制造浪漫</p>
             <p style="margin-top: 10px; font-size: 0.9rem;">两周年纪念日快乐 | 2023.02.14 - 2025.02.14</p>
         </footer>
     </div>
+    
+    <div class="lyrics-container" id="lyricsContainer">
+        <button class="lyrics-toggle" onclick="toggleLyrics()">✕</button>
+        <div class="lyrics-title">🎵 A Thousand Years - Christina Perri</div>
+        <div class="lyrics-wrapper">
+            <div class="lyrics-list" id="lyricsList"></div>
+        </div>
+    </div>
+    
     <div class="surprise-message" id="surpriseMessage">
         <h3>小彩金，我爱你！</h3>
         <p>这两年来，每一天都因为有你而变得特别。<br>你的笑容是我每天最大的动力，<br>你的幸福是我一生最大的追求。<br><br>小彩金，谢谢你出现在我的生命里，<br>谢谢你让我成为了更好的人。<br><br>愿我们的爱情永远甜蜜幸福！<br>三周年、四周年、十周年...<br>我们还会一起过很多很多个纪念日！<br><br><strong style="font-size: 1.4rem;">爱你，小彩金！永远爱你！❤️</strong></p>
         <button class="close-btn" onclick="closeSurprise()">我也爱你</button>
     </div>
+    
     <script>
         const meetDate = new Date('2023-02-14T00:00:00');
         let isMusicPlaying = false;
         const bgMusic = document.getElementById('bgMusic');
         const musicBtn = document.getElementById('musicBtn');
         const musicTooltip = document.getElementById('musicTooltip');
-        window.addEventListener('load', () => {
+        
+        const lyrics = [
+            { time: 0, text: "♪ 音乐开始..." },
+            { time: 3, text: "Heart beats fast" },
+            { time: 6, text: "Colors and promises" },
+            { time: 10, text: "How to be brave?" },
+            { time: 14, text: "How can I love when I'm afraid" },
+            { time: 17, text: "To fall but watching you stand alone" },
+            { time: 22, text: "All of my doubt suddenly goes away somehow" },
+            { time: 28, text: "One step closer" },
+            { time: 32, text: "I have died every day waiting for you" },
+            { time: 38, text: "Darling, don't be afraid" },
+            { time: 41, text: "I have loved you for a thousand years" },
+            { time: 48, text: "I'll love you for a thousand more" },
+            { time: 55, text: "Time stands still" },
+            { time: 59, text: "Beauty in all she is" },
+            { time: 63, text: "I will be brave" },
+            { time: 67, text: "I will not let anything take away" },
+            { time: 72, text: "What's standing in front of me" },
+            { time: 77, text: "Every breath, every hour has come to this" },
+            { time: 84, text: "One step closer" },
+            { time: 88, text: "I have died every day waiting for you" },
+            { time: 94, text: "Darling, don't be afraid" },
+            { time: 97, text: "I have loved you for a thousand years" },
+            { time: 104, text: "I'll love you for a thousand more" },
+            { time: 116, text: "And all along I believed I would find you" },
+            { time: 123, text: "Time has brought your heart to me" },
+            { time: 129, text: "I have loved you for a thousand years" },
+            { time: 136, text: "I'll love you for a thousand more" },
+            { time: 150, text: "I have died every day waiting for you" },
+            { time: 157, text: "Darling, don't be afraid" },
+            { time: 160, text: "I have loved you for a thousand years" },
+            { time: 167, text: "I'll love you for a thousand more" },
+            { time: 178, text: "And all along I believed I would find you" },
+            { time: 185, text: "Time has brought your heart to me" },
+            { time: 191, text: "I have loved you for a thousand years" },
+            { time: 198, text: "I'll love you for a thousand more" },
+            { time: 208, text: "♪ 音乐结束" }
+        ];
+        
+        function initLyrics() {
+            const lyricsList = document.getElementById('lyricsList');
+            lyrics.forEach((line, index) => {
+                const div = document.createElement('div');
+                div.className = 'lyric-line';
+                div.textContent = line.text;
+                div.dataset.index = index;
+                lyricsList.appendChild(div);
+            });
+        }
+        initLyrics();
+        
+        function updateLyrics() {
+            if (!isMusicPlaying) return;
+            const currentTime = bgMusic.currentTime;
+            let currentIndex = 0;
+            for (let i = 0; i < lyrics.length; i++) {
+                if (currentTime >= lyrics[i].time) {
+                    currentIndex = i;
+                } else {
+                    break;
+                }
+            }
+            document.querySelectorAll('.lyric-line').forEach((line, index) => {
+                if (index === currentIndex) {
+                    line.classList.add('active');
+                    line.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    line.classList.remove('active');
+                }
+            });
+        }
+        
+        setInterval(updateLyrics, 500);
+        
+        function toggleLyrics() {
+            const container = document.getElementById('lyricsContainer');
+            container.classList.toggle('hidden');
+        }
+        
+        function tryAutoPlay() {
             bgMusic.play().then(() => {
                 isMusicPlaying = true;
-                musicTooltip.textContent = '正在播放：A Thousand Years - Christina Perri';
+                musicBtn.classList.remove('paused');
+                musicBtn.innerHTML = '🎵';
+                musicTooltip.textContent = '🎵 正在播放：A Thousand Years';
                 musicTooltip.classList.add('show');
-                setTimeout(() => musicTooltip.classList.remove('show'), 4000);
+                setTimeout(() => musicTooltip.classList.remove('show'), 3000);
             }).catch(e => {
+                console.log('自动播放被阻止:', e);
                 musicBtn.classList.add('paused');
                 musicBtn.innerHTML = '🔇';
                 musicTooltip.textContent = '点击播放背景音乐';
-                musicTooltip.classList.add('show');
-                setTimeout(() => musicTooltip.classList.remove('show'), 3000);
+                showPlayHint();
             });
+        }
+        
+        function showPlayHint() {
+            const hint = document.createElement('div');
+            hint.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(45deg, #ff6b9d, #feca57);
+                color: white;
+                padding: 30px 50px;
+                border-radius: 20px;
+                font-size: 1.5rem;
+                z-index: 2000;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+                animation: fadeInUp 0.5s ease;
+            `;
+            hint.innerHTML = '🎵 点击任意处播放音乐<br><small style="font-size: 0.8rem;">为挚爱小彩金播放</small>';
+            document.body.appendChild(hint);
+            
+            function hideHint() {
+                hint.style.animation = 'fadeInDown 0.5s ease reverse';
+                setTimeout(() => hint.remove(), 500);
+                document.removeEventListener('click', hideHint);
+            }
+            
+            setTimeout(() => {
+                document.addEventListener('click', hideHint);
+            }, 100);
+        }
+        
+        window.addEventListener('load', () => {
+            setTimeout(tryAutoPlay, 500);
         });
+        
         function toggleMusic() {
             if (isMusicPlaying) {
                 bgMusic.pause();
@@ -656,12 +833,13 @@
                 bgMusic.play();
                 musicBtn.classList.remove('paused');
                 musicBtn.innerHTML = '🎵';
-                musicTooltip.textContent = '正在播放：A Thousand Years';
+                musicTooltip.textContent = '🎵 正在播放：A Thousand Years';
             }
             isMusicPlaying = !isMusicPlaying;
             musicTooltip.classList.add('show');
             setTimeout(() => musicTooltip.classList.remove('show'), 2000);
         }
+        
         function updateTimer() {
             const now = new Date();
             const diff = now - meetDate;
@@ -680,6 +858,7 @@
         }
         setInterval(updateTimer, 1000);
         updateTimer();
+        
         function createStars() {
             const starsContainer = document.getElementById('stars');
             for (let i = 0; i < 150; i++) {
@@ -694,6 +873,7 @@
             }
         }
         createStars();
+        
         function createFloatingHearts() {
             const heartsContainer = document.getElementById('hearts');
             setInterval(() => {
@@ -708,6 +888,7 @@
             }, 1500);
         }
         createFloatingHearts();
+        
         const canvas = document.getElementById('fireworks');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -716,6 +897,7 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
+        
         class Particle {
             constructor(x, y, color) {
                 this.x = x;
@@ -749,6 +931,7 @@
                 ctx.restore();
             }
         }
+        
         class Firework {
             constructor(x, y, targetY, color) {
                 this.x = x;
@@ -809,6 +992,7 @@
                 }
             }
         }
+        
         let fireworks = [];
         const colors = ['#ff6b9d', '#feca57', '#ff9ff3', '#48dbfb', '#ff6348', '#a29bfe', '#fd79a8', '#ffeaa7'];
         function createFirework(x, y) {
@@ -829,12 +1013,17 @@
             requestAnimationFrame(animate);
         }
         animate();
+        
         document.addEventListener('click', (e) => {
             if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'VIDEO' && !e.target.classList.contains('memory-photo')) {
                 createFirework(e.clientX, e.clientY);
+                if (!isMusicPlaying && bgMusic.paused) {
+                    toggleMusic();
+                }
             }
         });
         setInterval(() => createFirework(), 3000);
+        
         function showSurprise() {
             const msg = document.getElementById('surpriseMessage');
             msg.classList.add('show');
@@ -846,6 +1035,7 @@
             const msg = document.getElementById('surpriseMessage');
             msg.classList.remove('show');
         }
+        
         window.addEventListener('load', () => {
             setTimeout(() => {
                 for (let i = 0; i < 8; i++) {
