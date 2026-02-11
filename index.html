@@ -79,6 +79,14 @@
             opacity: 1;
         }
         /* 左右歌词栏 */
+        .lyrics-desktop {
+            display: block;
+        }
+        .lyrics-mobile {
+            display: none;
+            text-align: center;
+            margin: 30px 0;
+        }
         .lyrics-side {
             position: fixed;
             top: 50%;
@@ -156,10 +164,50 @@
         }
         @media (max-width: 1200px) {
             .lyrics-side {
-                display: none;
+                position: relative;
+                width: calc(50% - 30px);
+                max-width: 300px;
+                margin: 10px;
+                left: auto;
+                right: auto;
+                transform: none;
+                display: inline-block;
+                vertical-align: top;
             }
-            .toggle-lyrics-btn {
-                display: block;
+            .lyrics-left, .lyrics-right {
+                left: auto;
+                right: auto;
+            }
+            .character-avatar {
+                width: 100px;
+                height: 100px;
+            }
+            .lyrics-content {
+                height: 200px;
+            }
+            .container {
+                max-width: 100%;
+            }
+            .lyrics-wrapper {
+                text-align: center;
+                padding: 0 10px;
+            }
+        }
+        @media (max-width: 768px) {
+            .lyrics-side {
+                width: calc(50% - 20px);
+                padding: 15px;
+                margin: 5px;
+            }
+            .character-avatar {
+                width: 80px;
+                height: 80px;
+            }
+            .lyrics-content {
+                height: 150px;
+            }
+            .lyric-line-side {
+                font-size: 0.8rem;
             }
         }
         .container {
@@ -461,18 +509,33 @@
             .timeline-content { width: calc(100% - 60px); margin-left: 50px !important; }
             .content-card { padding: 30px 20px; }
             .music-control { width: 50px; height: 50px; font-size: 1.5rem; }
-            .lyrics-side { width: 150px; padding: 15px; }
-            .character-avatar { width: 70px; height: 70px; }
-            .lyrics-content { height: 200px; }
-            .lyric-line-side { font-size: 0.85rem; }
-            .container { max-width: calc(100% - 340px); }
+            .lyrics-desktop { display: none; }
+            .lyrics-mobile { display: block; }
+            .lyrics-mobile .lyrics-side {
+                position: relative;
+                width: calc(50% - 20px);
+                max-width: 200px;
+                margin: 10px;
+                left: auto;
+                right: auto;
+                transform: none;
+                display: inline-block;
+                vertical-align: top;
+                top: auto;
+            }
+            .character-avatar { width: 100px; height: 100px; }
+            .lyrics-content { height: 180px; }
+            .container { max-width: 100%; }
         }
-        @media (max-width: 900px) {
-            .lyrics-side { width: 120px; padding: 10px; }
-            .character-avatar { width: 60px; height: 60px; }
-            .lyrics-content { height: 150px; }
+        @media (max-width: 768px) {
+            .lyrics-mobile .lyrics-side {
+                width: calc(50% - 10px);
+                padding: 10px;
+                margin: 5px;
+            }
+            .character-avatar { width: 70px; height: 70px; }
+            .lyrics-content { height: 120px; }
             .lyric-line-side { font-size: 0.75rem; }
-            .container { max-width: calc(100% - 280px); padding: 40px 10px; }
         }
         .surprise-message {
             position: fixed;
@@ -533,27 +596,30 @@
     </style>
 </head>
 <body>
-    <audio id="bgMusic" loop>
+    <audio id="bgMusic" loop preload="auto">
         <source src="三周年素材/A%20Thousand%20Years-Christina%20Perri.mp3" type="audio/mpeg">
     </audio>
     
     <button class="music-control" id="musicBtn" onclick="toggleMusic()">🎵</button>
     <div class="music-tooltip" id="musicTooltip">A Thousand Years - Christina Perri</div>
     
-    <!-- 左侧歌词栏 - 布布 -->
-    <div class="lyrics-side lyrics-left" id="lyricsLeft">
-        <div class="character-avatar">
-            <img src="三周年素材/布布一二.gif" alt="布布" onerror="this.style.display='none'; this.parentElement.innerHTML='🐻';">
+    <!-- 桌面端：左右固定歌词栏 -->
+    <div class="lyrics-desktop">
+        <!-- 左侧歌词栏 - 布布 -->
+        <div class="lyrics-side lyrics-left" id="lyricsLeftDesktop">
+            <div class="character-avatar">
+                <img src="三周年素材/布布一二.gif" alt="布布" onerror="this.style.display='none'; this.parentElement.innerHTML='🐻';">
+            </div>
+            <div class="lyrics-content" id="lyricsContentLeftDesktop"></div>
         </div>
-        <div class="lyrics-content" id="lyricsContentLeft"></div>
-    </div>
-    
-    <!-- 右侧歌词栏 - 一二 -->
-    <div class="lyrics-side lyrics-right" id="lyricsRight">
-        <div class="character-avatar">
-            <img src="三周年素材/一二布布.gif" alt="一二" onerror="this.style.display='none'; this.parentElement.innerHTML='🐰';">
+        
+        <!-- 右侧歌词栏 - 一二 -->
+        <div class="lyrics-side lyrics-right" id="lyricsRightDesktop">
+            <div class="character-avatar">
+                <img src="三周年素材/一二布布.gif" alt="一二" onerror="this.style.display='none'; this.parentElement.innerHTML='🐰';">
+            </div>
+            <div class="lyrics-content" id="lyricsContentRightDesktop"></div>
         </div>
-        <div class="lyrics-content" id="lyricsContentRight"></div>
     </div>
     
     <div class="stars" id="stars"></div>
@@ -561,6 +627,21 @@
     <canvas id="fireworks"></canvas>
     
     <div class="container">
+        <!-- 移动端：歌词栏放在内容区内 -->
+        <div class="lyrics-mobile">
+            <div class="lyrics-side" id="lyricsLeftMobile">
+                <div class="character-avatar">
+                    <img src="三周年素材/布布一二.gif" alt="布布" onerror="this.style.display='none'; this.parentElement.innerHTML='🐻';">
+                </div>
+                <div class="lyrics-content" id="lyricsContentLeftMobile"></div>
+            </div>
+            <div class="lyrics-side" id="lyricsRightMobile">
+                <div class="character-avatar">
+                    <img src="三周年素材/一二布布.gif" alt="一二" onerror="this.style.display='none'; this.parentElement.innerHTML='🐰';">
+                </div>
+                <div class="lyrics-content" id="lyricsContentRightMobile"></div>
+            </div>
+        </div>
         <header class="header">
             <h1 class="main-title">小彩金，三周年快乐！</h1>
             <p class="subtitle">
@@ -763,26 +844,58 @@
         ];
         
         function initLyrics() {
-            const leftContainer = document.getElementById('lyricsContentLeft');
-            const rightContainer = document.getElementById('lyricsContentRight');
+            // 桌面端
+            const leftContainerDesktop = document.getElementById('lyricsContentLeftDesktop');
+            const rightContainerDesktop = document.getElementById('lyricsContentRightDesktop');
+            // 移动端
+            const leftContainerMobile = document.getElementById('lyricsContentLeftMobile');
+            const rightContainerMobile = document.getElementById('lyricsContentRightMobile');
             
-            lyricsLeft.forEach((line, index) => {
-                const div = document.createElement('div');
-                div.className = 'lyric-line-side';
-                div.textContent = line.text;
-                div.dataset.time = line.time;
-                div.dataset.index = index;
-                leftContainer.appendChild(div);
-            });
+            // 填充桌面端歌词
+            if (leftContainerDesktop) {
+                lyricsLeft.forEach((line, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'lyric-line-side';
+                    div.textContent = line.text;
+                    div.dataset.time = line.time;
+                    div.dataset.index = index;
+                    leftContainerDesktop.appendChild(div);
+                });
+            }
             
-            lyricsRight.forEach((line, index) => {
-                const div = document.createElement('div');
-                div.className = 'lyric-line-side';
-                div.textContent = line.text;
-                div.dataset.time = line.time;
-                div.dataset.index = index;
-                rightContainer.appendChild(div);
-            });
+            if (rightContainerDesktop) {
+                lyricsRight.forEach((line, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'lyric-line-side';
+                    div.textContent = line.text;
+                    div.dataset.time = line.time;
+                    div.dataset.index = index;
+                    rightContainerDesktop.appendChild(div);
+                });
+            }
+            
+            // 填充移动端歌词
+            if (leftContainerMobile) {
+                lyricsLeft.forEach((line, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'lyric-line-side';
+                    div.textContent = line.text;
+                    div.dataset.time = line.time;
+                    div.dataset.index = index;
+                    leftContainerMobile.appendChild(div);
+                });
+            }
+            
+            if (rightContainerMobile) {
+                lyricsRight.forEach((line, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'lyric-line-side';
+                    div.textContent = line.text;
+                    div.dataset.time = line.time;
+                    div.dataset.index = index;
+                    rightContainerMobile.appendChild(div);
+                });
+            }
         }
         initLyrics();
         
@@ -804,6 +917,28 @@
         setInterval(updateLyrics, 500);
         
         function tryAutoPlay() {
+            // 显示加载提示
+            musicTooltip.textContent = '⏳ 正在加载音乐...';
+            musicTooltip.classList.add('show');
+            
+            // 等待音频有足够数据后再播放
+            if (bgMusic.readyState >= 2) {
+                playMusic();
+            } else {
+                bgMusic.addEventListener('canplaythrough', playMusic, { once: true });
+                // 超时处理
+                setTimeout(() => {
+                    if (!isMusicPlaying) {
+                        musicBtn.classList.add('paused');
+                        musicBtn.innerHTML = '🔇';
+                        musicTooltip.textContent = '点击播放背景音乐';
+                        showPlayHint();
+                    }
+                }, 5000);
+            }
+        }
+        
+        function playMusic() {
             bgMusic.play().then(() => {
                 isMusicPlaying = true;
                 musicBtn.classList.remove('paused');
