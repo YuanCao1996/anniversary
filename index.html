@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小彩金，两周年快乐！</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
             background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
@@ -18,31 +13,23 @@
             overflow-x: hidden;
             position: relative;
         }
-
-        /* 星星背景 */
         .stars {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             pointer-events: none;
             z-index: 1;
         }
-
         .star {
             position: absolute;
             background: white;
             border-radius: 50%;
             animation: twinkle 3s infinite ease-in-out;
         }
-
         @keyframes twinkle {
             0%, 100% { opacity: 0.3; }
             50% { opacity: 1; }
         }
-
-        /* 音乐控制按钮 */
         .music-control {
             position: fixed;
             top: 20px;
@@ -62,21 +49,17 @@
             transition: all 0.3s ease;
             animation: rotate 8s linear infinite;
         }
-
         .music-control:hover {
             transform: scale(1.1);
             box-shadow: 0 8px 30px rgba(255, 107, 157, 0.7);
         }
-
         .music-control.paused {
             animation-play-state: paused;
         }
-
         @keyframes rotate {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-
         .music-tooltip {
             position: fixed;
             top: 90px;
@@ -92,12 +75,9 @@
             pointer-events: none;
             max-width: 200px;
         }
-
         .music-tooltip.show {
             opacity: 1;
         }
-
-        /* 主容�?*/
         .container {
             position: relative;
             z-index: 100;
@@ -106,8 +86,6 @@
             padding: 40px 20px;
             text-align: center;
         }
-
-        /* 标题区域 */
         .header {
             margin-bottom: 50px;
             animation: fadeInDown 1.5s ease-out forwards;
@@ -116,7 +94,6 @@
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
         .main-title {
             font-size: 3.5rem;
             background: linear-gradient(45deg, #ff6b9d, #feca57, #ff9ff3, #ff6b9d);
@@ -126,38 +103,29 @@
             background-clip: text;
             animation: gradientShift 4s ease infinite;
             margin-bottom: 15px;
-            text-shadow: 0 0 60px rgba(255, 107, 157, 0.5);
         }
-
         @keyframes gradientShift {
             0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
         }
-
         .subtitle {
             color: #ffdde1;
             font-size: 1.4rem;
             opacity: 0.9;
             line-height: 1.8;
         }
-
         .name-highlight {
             color: #ff9ff3;
             font-weight: bold;
             font-size: 1.6rem;
         }
-
-        /* 爱心装饰 */
         .hearts {
             position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
+            width: 100%; height: 100%;
+            top: 0; left: 0;
             pointer-events: none;
             z-index: 5;
         }
-
         .floating-heart {
             position: absolute;
             color: #ff6b9d;
@@ -165,15 +133,12 @@
             animation: float 8s infinite ease-in-out;
             opacity: 0.6;
         }
-
         @keyframes float {
             0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
             10% { opacity: 0.6; }
             90% { opacity: 0.6; }
             100% { transform: translateY(-100px) rotate(720deg); opacity: 0; }
         }
-
-        /* 内容卡片 */
         .content-card {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(10px);
@@ -184,7 +149,6 @@
             box-shadow: 0 8px 32px rgba(255, 107, 157, 0.15);
             animation: fadeInUp 1s ease-out forwards;
         }
-
         .content-card h2 {
             color: #ff9ff3;
             font-size: 2.2rem;
@@ -192,7 +156,6 @@
             position: relative;
             display: inline-block;
         }
-
         .content-card h2::after {
             content: '';
             position: absolute;
@@ -203,15 +166,12 @@
             height: 4px;
             background: linear-gradient(90deg, transparent, #ff6b9d, transparent);
         }
-
         .content-card p {
             color: #ffeef8;
             font-size: 1.15rem;
             line-height: 2.2;
             margin: 20px 0;
         }
-
-        /* 时间计数�?*/
         .timer {
             display: flex;
             justify-content: center;
@@ -219,7 +179,6 @@
             margin: 40px 0;
             flex-wrap: wrap;
         }
-
         .time-box {
             background: linear-gradient(135deg, rgba(255, 107, 157, 0.25), rgba(254, 202, 87, 0.25));
             border-radius: 15px;
@@ -227,36 +186,27 @@
             min-width: 90px;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
-
         .time-number {
             font-size: 2.8rem;
             font-weight: bold;
             color: #fff;
             text-shadow: 0 0 20px rgba(255, 107, 157, 0.8);
         }
-
         .time-label {
             color: #ffdde1;
             font-size: 0.95rem;
             margin-top: 8px;
         }
-
-        /* 烟花画布 */
         #fireworks {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             pointer-events: none;
             z-index: 1;
         }
-
-        /* 按钮 */
         .btn-container {
             margin: 50px 0;
         }
-
         .surprise-btn {
             background: linear-gradient(45deg, #ff6b9d, #feca57);
             border: none;
@@ -269,18 +219,14 @@
             transition: all 0.3s ease;
             animation: pulse 2s infinite;
         }
-
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
         }
-
         .surprise-btn:hover {
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 15px 40px rgba(255, 107, 157, 0.7);
         }
-
-        /* 文字特效 */
         .love-text {
             font-size: 1.2rem;
             color: #ffeef8;
@@ -291,23 +237,18 @@
             border-radius: 15px;
             margin: 30px 0;
         }
-
         .love-text p {
             margin: 20px 0;
             text-indent: 2em;
         }
-
         .highlight {
             color: #ff9ff3;
             font-weight: bold;
         }
-
-        /* 时间轴样�?*/
         .timeline {
             position: relative;
             padding: 20px 0;
         }
-
         .timeline::before {
             content: '';
             position: absolute;
@@ -318,7 +259,6 @@
             background: linear-gradient(to bottom, #ff6b9d, #feca57, #ff9ff3);
             border-radius: 3px;
         }
-
         .timeline-item {
             position: relative;
             margin: 40px 0;
@@ -326,7 +266,6 @@
             align-items: center;
             justify-content: center;
         }
-
         .timeline-content {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
@@ -335,17 +274,14 @@
             border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 5px 20px rgba(255, 107, 157, 0.1);
         }
-
         .timeline-item:nth-child(odd) .timeline-content {
             margin-right: auto;
             margin-left: 0;
         }
-
         .timeline-item:nth-child(even) .timeline-content {
             margin-left: auto;
             margin-right: 0;
         }
-
         .timeline-dot {
             position: absolute;
             left: 50%;
@@ -357,21 +293,17 @@
             box-shadow: 0 0 20px rgba(255, 107, 157, 0.8);
             z-index: 10;
         }
-
         .timeline-date {
             color: #ff9ff3;
             font-size: 1.3rem;
             font-weight: bold;
             margin-bottom: 10px;
         }
-
         .timeline-text {
             color: #ffeef8;
             font-size: 1.05rem;
             line-height: 1.8;
         }
-
-        /* 照片展示 */
         .memory-photo {
             width: 100%;
             max-width: 350px;
@@ -381,16 +313,12 @@
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease;
         }
-
         .memory-photo:hover {
             transform: scale(1.02);
         }
-
-        /* 视频区域 */
         .video-section {
             margin: 40px 0;
         }
-
         .video-container {
             position: relative;
             max-width: 700px;
@@ -400,13 +328,11 @@
             box-shadow: 0 15px 40px rgba(255, 107, 157, 0.3);
             background: rgba(0, 0, 0, 0.3);
         }
-
         .video-container video {
             width: 100%;
             height: auto;
             display: block;
         }
-
         .video-label {
             display: inline-block;
             background: rgba(255, 107, 157, 0.9);
@@ -417,8 +343,6 @@
             font-weight: bold;
             margin-bottom: 15px;
         }
-
-        /* 动画 */
         @keyframes fadeInDown {
             from {
                 opacity: 0;
@@ -429,7 +353,6 @@
                 transform: translateY(0);
             }
         }
-
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -440,26 +363,20 @@
                 transform: translateY(0);
             }
         }
-
-        /* 页脚 */
         .footer {
             margin-top: 80px;
             padding: 40px;
             color: rgba(255, 255, 255, 0.6);
             font-size: 1rem;
         }
-
         .footer .heart {
             color: #ff6b9d;
             animation: heartbeat 1s infinite;
         }
-
         @keyframes heartbeat {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.2); }
         }
-
-        /* 响应�?*/
         @media (max-width: 768px) {
             .main-title {
                 font-size: 2.2rem;
@@ -493,8 +410,6 @@
                 font-size: 1.5rem;
             }
         }
-
-        /* 惊喜消息 */
         .surprise-message {
             position: fixed;
             top: 50%;
@@ -510,23 +425,19 @@
             max-width: 90%;
             width: 550px;
         }
-
         .surprise-message.show {
             transform: translate(-50%, -50%) scale(1);
         }
-
         .surprise-message h3 {
             color: white;
             font-size: 2.2rem;
             margin-bottom: 25px;
         }
-
         .surprise-message p {
             color: rgba(255, 255, 255, 0.95);
             font-size: 1.25rem;
             line-height: 2;
         }
-
         .close-btn {
             margin-top: 30px;
             background: white;
@@ -539,13 +450,10 @@
             font-weight: bold;
             transition: all 0.3s ease;
         }
-
         .close-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
         }
-
-        /* 引言样式 */
         .quote {
             font-style: italic;
             color: #ff9ff3;
@@ -561,44 +469,31 @@
     </style>
 </head>
 <body>
-    <!-- 背景音乐 -->
     <audio id="bgMusic" loop autoplay>
-        <source src="file:///D:/chencj/三周年素�?A%20Thousand%20Years-Christina%20Perri.mp3" type="audio/mpeg">
-        您的浏览器不支持音频播放
+        <source src="三周年素材/A%20Thousand%20Years-Christina%20Perri.mp3" type="audio/mpeg">
     </audio>
-
-    <!-- 音乐控制按钮 -->
     <button class="music-control" id="musicBtn" onclick="toggleMusic()">🎵</button>
-    <div class="music-tooltip" id="musicTooltip">🎵 A Thousand Years - Christina Perri</div>
-
-    <!-- 星星背景 -->
+    <div class="music-tooltip" id="musicTooltip">A Thousand Years - Christina Perri</div>
     <div class="stars" id="stars"></div>
-    
-    <!-- 爱心飘落 -->
     <div class="hearts" id="hearts"></div>
-    
-    <!-- 烟花画布 -->
     <canvas id="fireworks"></canvas>
-    
-    <!-- 主内�?-->
     <div class="container">
         <header class="header">
-            <h1 class="main-title">小彩金，两周年快�?/h1>
+            <h1 class="main-title">小彩金，两周年快乐！</h1>
             <p class="subtitle">
-                亲爱的小彩金�?br>
-                �?023�?�?4日到今天，我们已经相识相爱了<br>
-                <span id="totalDays" style="font-size: 2rem; color: #ff9ff3; font-weight: bold;">0</span> �?            </p>
+                亲爱的小彩金<br>
+                从2023年2月14日到今天，我们已经相识相爱了<br>
+                <span id="totalDays" style="font-size: 2rem; color: #ff9ff3; font-weight: bold;">0</span> 天
+            </p>
         </header>
-
-        <!-- 时间计数�?-->
         <div class="timer" id="timer">
             <div class="time-box">
                 <div class="time-number" id="years">0</div>
-                <div class="time-label">�?/div>
+                <div class="time-label">年</div>
             </div>
             <div class="time-box">
                 <div class="time-number" id="days">0</div>
-                <div class="time-label">�?/div>
+                <div class="time-label">天</div>
             </div>
             <div class="time-box">
                 <div class="time-number" id="hours">0</div>
@@ -610,259 +505,172 @@
             </div>
             <div class="time-box">
                 <div class="time-number" id="seconds">0</div>
-                <div class="time-label">�?/div>
+                <div class="time-label">秒</div>
             </div>
         </div>
-
-        <!-- 致小彩金 -->
         <div class="content-card">
-            <h2>致我最爱的小彩�?/h2>
+            <h2>致我最爱的小彩金</h2>
             <div class="love-text">
-                <p>
-                    小彩金，两年前的那个情人节，命运让我们相遇�?                    从那一刻起，我就知道，你就是我一生要找的那个人�?                </p>
-                <p>
-                    这两年的每一天，每一个小时，每一分钟�?                    每一个时刻都因为有你而变得珍贵。我们一起看过的日出日落，一起走过的街道巷口�?                    一起分享过的欢笑泪水，都成为了我生命中最美好的回忆�?                </p>
-                <p>
-                    从相识时的怦然心动，到相知时的心意相通，再到相守时的相濡以沫�?                    小彩金，谢谢你愿意陪我走过这两年，愿意让我成为你生命中最重要的人�?                </p>
-                <p>
-                    两年很长，长到我们一起经历了无数个春夏秋冬；<br>
-                    两年很短，短到我还没有爱够你，还想继续爱你更多个两年�?                </p>
+                <p>小彩金，两年前的那个情人节，命运让我们相遇。从那一刻起，我就知道，你就是我一生要找的那个人。</p>
+                <p>这两年的每一天，每一个小时，每一分钟，每一个时刻都因为有你而变得珍贵。我们一起看过的日出日落，一起走过的街道巷口，一起分享过的欢笑泪水，都成为了我生命中最美好的回忆。</p>
+                <p>从相识时的怦然心动，到相知时的心意相通，再到相守时的相濡以沫，小彩金，谢谢你愿意陪我走过这两年，愿意让我成为你生命中最重要的人。</p>
+                <p>两年很长，长到我们一起经历了无数个春夏秋冬；<br>两年很短，短到我还没有爱够你，还想继续爱你更多个两年。</p>
             </div>
-            <div class="quote">
-                "小彩金，你是我这一生只会遇见一次的惊喜，是我想要守护一生的挚爱�?
-            </div>
+            <div class="quote">小彩金，你是我这一生只会遇见一次的惊喜，是我想要守护一生的挚爱。</div>
         </div>
-
-        <!-- 按钮 -->
         <div class="btn-container">
-            <button class="surprise-btn" onclick="showSurprise()">
-                小彩金，点击查看我们的回�?            </button>
+            <button class="surprise-btn" onclick="showSurprise()">小彩金，点击查看我们的回忆</button>
         </div>
-
-        <!-- 两年回忆时间�?-->
         <div class="content-card">
-            <h2>我们的两年时�?/h2>
-            <p style="margin-bottom: 40px;">
-                每一个日期，都是我们爱情故事中的一�?br>
-                点击照片可以放大查看
-            </p>
-            
+            <h2>我们的两年时光</h2>
+            <p style="margin-bottom: 40px;">每一个日期，都是我们爱情故事中的一页</p>
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <div class="timeline-date">2023�?�?0�?/div>
-                        <img class="memory-photo" src="file:///D:/chencj/三周年素�?2023�?�?0�?jpg" alt="2023�?�?0�? onclick="window.open(this.src)">
-                        <div class="timeline-text">
-                            那个夏天，阳光正好，微风不燥。你笑着看向我的那一刻，
-                            我觉得整个世界都亮了。小彩金，和你在一起的每一天，都是最好的时光�?                        </div>
+                        <div class="timeline-date">2023年8月10日</div>
+                        <img class="memory-photo" src="三周年素材/2023年8月10日.jpg" alt="2023年8月10日">
+                        <div class="timeline-text">那个夏天，阳光正好，微风不燥。你笑着看向我的那一刻，我觉得整个世界都亮了。小彩金，和你在一起的每一天，都是最好的时光。</div>
                     </div>
                     <div class="timeline-dot"></div>
                 </div>
-
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <div class="timeline-date">2023�?�?�?/div>
-                        <img class="memory-photo" src="file:///D:/chencj/三周年素�?2023�?�?�?jpg" alt="2023�?�?�? onclick="window.open(this.src)">
-                        <div class="timeline-text">
-                            初秋的风带着一丝凉意，但你的怀抱永远温暖�?                            小彩金，你知道吗？我最喜欢的就是靠在你怀里，听你的心跳声�?                        </div>
+                        <div class="timeline-date">2023年9月8日</div>
+                        <img class="memory-photo" src="三周年素材/2023年9月8日.jpg" alt="2023年9月8日">
+                        <div class="timeline-text">初秋的风带着一丝凉意，但你的怀抱永远温暖。小彩金，你知道吗？我最喜欢的就是靠在你怀里，听你的心跳声。</div>
                     </div>
                     <div class="timeline-dot"></div>
                 </div>
-
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <div class="timeline-date">2023�?0�?�?/div>
-                        <img class="memory-photo" src="file:///D:/chencj/三周年素�?2023�?0�?�?jpg" alt="2023�?0�?�? onclick="window.open(this.src)">
-                        <div class="timeline-text">
-                            国庆节，我们一起度过的第一个长假�?                            那一天，我们牵着手走了很多路，说了好多话�?                            小彩金，只要和你在一起，去哪里都是最美的风景�?                        </div>
+                        <div class="timeline-date">2023年10月1日</div>
+                        <img class="memory-photo" src="三周年素材/2023年10月1日.jpg" alt="2023年10月1日">
+                        <div class="timeline-text">国庆节，我们一起度过的第一个长假。那一天，我们牵着手走了很多路，说了好多话。小彩金，只要和你在一起，去哪里都是最美的风景。</div>
                     </div>
                     <div class="timeline-dot"></div>
                 </div>
-
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <div class="timeline-date">2023�?0�?�?/div>
+                        <div class="timeline-date">2023年10月2日</div>
                         <div class="video-section">
                             <span class="video-label">珍贵视频记录</span>
                             <div class="video-container">
-                                <video controls poster="file:///D:/chencj/三周年素�?2023�?0�?�?jpg" style="max-height: 400px;">
-                                    <source src="file:///D:/chencj/三周年素�?2023�?0�?�?mp4" type="video/mp4">
-                                    您的浏览器不支持视频播放，请更换浏览�?                                </video>
+                                <video controls poster="三周年素材/2023年10月1日.jpg">
+                                    <source src="三周年素材/2023年10月1日.mp4" type="video/mp4">
+                                </video>
                             </div>
                         </div>
-                        <div class="timeline-text">
-                            这段视频记录了我们的欢声笑语。小彩金，每次看这个视频�?                            我都会想起你那天的笑容，那是我见过最美的风景�?                        </div>
+                        <div class="timeline-text">这段视频记录了我们的欢声笑语。小彩金，每次看这个视频，我都会想起你那天的笑容，那是我见过最美的风景。</div>
                     </div>
                     <div class="timeline-dot"></div>
                 </div>
-
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <div class="timeline-date">2023�?2�?9�?/div>
-                        <img class="memory-photo" src="file:///D:/chencj/三周年素�?2023�?2�?9�?jpg" alt="2023�?2�?9�? onclick="window.open(this.src)">
-                        <div class="timeline-text">
-                            冬天的寒冷挡不住我们的热情。那个冬天，
-                            因为有你在身边，连寒风都变得温柔。小彩金，你就是我的暖阳�?                        </div>
+                        <div class="timeline-date">2023年12月19日</div>
+                        <img class="memory-photo" src="三周年素材/2023年12月19日.jpg" alt="2023年12月19日">
+                        <div class="timeline-text">冬天的寒冷挡不住我们的热情。那个冬天，因为有你在身边，连寒风都变得温柔。小彩金，你就是我的暖阳。</div>
                     </div>
                     <div class="timeline-dot"></div>
                 </div>
-
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <div class="timeline-date">2024�?�?�?/div>
-                        <img class="memory-photo" src="file:///D:/chencj/三周年素�?2024�?�?�?jpg" alt="2024�?�?�? onclick="window.open(this.src)">
-                        <div class="timeline-text">
-                            春暖花开，万物复苏。这一年，我们的感情也像这春天一样，
-                            越来越深，越来越浓。小彩金，我爱你，比昨天更多一点�?                        </div>
+                        <div class="timeline-date">2024年5月2日</div>
+                        <img class="memory-photo" src="三周年素材/2024年5月2日.jpg" alt="2024年5月2日">
+                        <div class="timeline-text">春暖花开，万物复苏。这一年，我们的感情也像这春天一样，越来越深，越来越浓。小彩金，我爱你，比昨天更多一点。</div>
                     </div>
                     <div class="timeline-dot"></div>
                 </div>
-
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <div class="timeline-date">2024�?�?�?/div>
-                        <img class="memory-photo" src="file:///D:/chencj/三周年素�?2024�?�?�?jpg" alt="2024�?�?�? onclick="window.open(this.src)">
-                        <div class="timeline-text">
-                            炎炎夏日，有你最甜。那个夏天，我们一起创造了很多美好的回忆�?                            小彩金，和你在一起的每一个夏天，都是我生命中最灿烂的季节�?                        </div>
+                        <div class="timeline-date">2024年8月9日</div>
+                        <img class="memory-photo" src="三周年素材/2024年8月9日.jpg" alt="2024年8月9日">
+                        <div class="timeline-text">炎炎夏日，有你最甜。那个夏天，我们一起创造了很多美好的回忆。小彩金，和你在一起的每一个夏天，都是我生命中最灿烂的季节。</div>
                     </div>
                     <div class="timeline-dot"></div>
                 </div>
-
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <div class="timeline-date">2025�?�?�?/div>
-                        <img class="memory-photo" src="file:///D:/chencj/三周年素�?2025�?�?�?jpg" alt="2025�?�?�? onclick="window.open(this.src)">
-                        <div class="timeline-text">
-                            时间来到了第二年，我们的感情已经经过了时间的考验�?                            小彩金，我越来越确定，你就是我要携手一生的人�?                        </div>
+                        <div class="timeline-date">2025年5月9日</div>
+                        <img class="memory-photo" src="三周年素材/2025年5月9日.jpg" alt="2025年5月9日">
+                        <div class="timeline-text">时间来到了第二年，我们的感情已经经过了时间的考验。小彩金，我越来越确定，你就是我要携手一生的人。</div>
                     </div>
                     <div class="timeline-dot"></div>
                 </div>
-
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <div class="timeline-date">2025�?�?5�?/div>
-                        <img class="memory-photo" src="file:///D:/chencj/三周年素�?2025�?�?5�?jpg" alt="2025�?�?5�? onclick="window.open(this.src)">
-                        <div class="timeline-text">
-                            两年前的梦想，两年后的现实。小彩金，谢谢你这两年的陪伴�?                            让我明白了什么是真正的爱情。未来的路，我还要牵着你的手一起走�?                        </div>
+                        <div class="timeline-date">2025年8月15日</div>
+                        <img class="memory-photo" src="三周年素材/2025年8月15日.jpg" alt="2025年8月15日">
+                        <div class="timeline-text">两年前的梦想，两年后的现实。小彩金，谢谢你这两年的陪伴，让我明白了什么是真正的爱情。未来的路，我还要牵着你的手一起走。</div>
                     </div>
                     <div class="timeline-dot"></div>
                 </div>
             </div>
         </div>
-
-        <!-- 未来展望 -->
         <div class="content-card">
-            <h2>我们的未�?/h2>
+            <h2>我们的未来</h2>
             <div class="love-text">
-                <p>
-                    小彩金，两周年不是终点，而是新的起点�?                </p>
-                <p>
-                    我想和你一起看更多的日出日落，一起走过更多的春夏秋冬�?br>
-                    我想在你开心的时候陪你笑，在你难过的时候给你一个拥抱�?br>
-                    我想和你一起经历生活中的每一个重要时刻，一起分享生命中的每一份喜悦�?                </p>
-                <p>
-                    两年很短，余生很长�?br>
-                    小彩金，让我用余生的时间，继续爱你，守护你，陪伴你�?br>
-                    三周年、四周年、十周年...直到我们白发苍苍，我依然会牵着你的手，
-                    对你说："小彩金，我爱你�?
-                </p>
+                <p>小彩金，两周年不是终点，而是新的起点。</p>
+                <p>我想和你一起看更多的日出日落，一起走过更多的春夏秋冬。<br>我想在你开心的时候陪你笑，在你难过的时候给你一个拥抱。<br>我想和你一起经历生活中的每一个重要时刻，一起分享生命中的每一份喜悦。</p>
+                <p>两年很短，余生很长。<br>小彩金，让我用余生的时间，继续爱你，守护你，陪伴你。<br>三周年、四周年、十周年...直到我们白发苍苍，我依然会牵着你的手，对你说：小彩金，我爱你。</p>
             </div>
-            <div class="quote">
-                "从前的日色变得慢，车、马、邮件都慢，一生只够爱一个人�?br>
-                小彩金，在这个快节奏的时代，我想慢慢地、好好地爱你一辈子�?
-            </div>
+            <div class="quote">从前的日色变得慢，车、马、邮件都慢，一生只够爱一个人。<br>小彩金，在这个快节奏的时代，我想慢慢地、好好地爱你一辈子。</div>
         </div>
-
         <footer class="footer">
-            <p style="font-size: 1.2rem;">Made with <span class="heart">❤️</span> for 小彩�?/p>
-            <p style="margin-top: 15px;">点击屏幕任意位置可以燃放烟花，为小彩金制造浪�?/p>
+            <p style="font-size: 1.2rem;">Made with <span class="heart">❤️</span> for 小彩金</p>
+            <p style="margin-top: 15px;">点击屏幕任意位置可以燃放烟花，为小彩金制造浪漫</p>
             <p style="margin-top: 10px; font-size: 0.9rem;">两周年纪念日快乐 | 2023.02.14 - 2025.02.14</p>
         </footer>
     </div>
-
-    <!-- 惊喜弹窗 -->
     <div class="surprise-message" id="surpriseMessage">
-        <h3>小彩金，我爱�?/h3>
-        <p>
-            这两年来，每一天都因为有你而变得特别�?br>
-            你的笑容是我每天最大的动力�?br>
-            你的幸福是我一生最大的追求�?br><br>
-            小彩金，谢谢你出现在我的生命里，<br>
-            谢谢你让我成为了更好的人�?br><br>
-            愿我们的爱情永远甜蜜幸福�?br>
-            三周年、四周年、十周年...<br>
-            我们还会一起过很多很多个纪念日�?br><br>
-            <strong style="font-size: 1.4rem;">爱你，小彩金！永远爱你！❤️</strong>
-        </p>
+        <h3>小彩金，我爱你！</h3>
+        <p>这两年来，每一天都因为有你而变得特别。<br>你的笑容是我每天最大的动力，<br>你的幸福是我一生最大的追求。<br><br>小彩金，谢谢你出现在我的生命里，<br>谢谢你让我成为了更好的人。<br><br>愿我们的爱情永远甜蜜幸福！<br>三周年、四周年、十周年...<br>我们还会一起过很多很多个纪念日！<br><br><strong style="font-size: 1.4rem;">爱你，小彩金！永远爱你！❤️</strong></p>
         <button class="close-btn" onclick="closeSurprise()">我也爱你</button>
     </div>
-
     <script>
-        // 设置相识日期�?023�?�?4日）
         const meetDate = new Date('2023-02-14T00:00:00');
-
-        // 背景音乐控制
         let isMusicPlaying = false;
         const bgMusic = document.getElementById('bgMusic');
         const musicBtn = document.getElementById('musicBtn');
         const musicTooltip = document.getElementById('musicTooltip');
-
-        // 页面加载时自动播放音�?        window.addEventListener('load', () => {
-            // 尝试自动播放
+        window.addEventListener('load', () => {
             bgMusic.play().then(() => {
                 isMusicPlaying = true;
-                musicTooltip.textContent = '🎵 正在播放：A Thousand Years - Christina Perri';
+                musicTooltip.textContent = '正在播放：A Thousand Years - Christina Perri';
                 musicTooltip.classList.add('show');
-                setTimeout(() => {
-                    musicTooltip.classList.remove('show');
-                }, 4000);
+                setTimeout(() => musicTooltip.classList.remove('show'), 4000);
             }).catch(e => {
-                console.log('自动播放被阻�?', e);
-                // 如果自动播放失败（浏览器策略），显示点击播放提示
                 musicBtn.classList.add('paused');
                 musicBtn.innerHTML = '🔇';
                 musicTooltip.textContent = '点击播放背景音乐';
                 musicTooltip.classList.add('show');
-                setTimeout(() => {
-                    musicTooltip.classList.remove('show');
-                }, 3000);
+                setTimeout(() => musicTooltip.classList.remove('show'), 3000);
             });
         });
-
         function toggleMusic() {
             if (isMusicPlaying) {
                 bgMusic.pause();
                 musicBtn.classList.add('paused');
                 musicBtn.innerHTML = '🔇';
-                musicTooltip.textContent = '音乐已暂�?;
+                musicTooltip.textContent = '音乐已暂停';
             } else {
-                bgMusic.play().catch(e => {
-                    console.log('音乐播放失败:', e);
-                    alert('音乐文件路径错误或文件不存在，请检查路径：D:\\chencj\\三周年素材\\A Thousand Years-Christina Perri.mp3');
-                });
+                bgMusic.play();
                 musicBtn.classList.remove('paused');
                 musicBtn.innerHTML = '🎵';
-                musicTooltip.textContent = '🎵 正在播放：A Thousand Years';
+                musicTooltip.textContent = '正在播放：A Thousand Years';
             }
             isMusicPlaying = !isMusicPlaying;
-            
             musicTooltip.classList.add('show');
-            setTimeout(() => {
-                musicTooltip.classList.remove('show');
-            }, 2000);
+            setTimeout(() => musicTooltip.classList.remove('show'), 2000);
         }
-
-        // 更新计时�?        function updateTimer() {
+        function updateTimer() {
             const now = new Date();
             const diff = now - meetDate;
-            
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
             const years = Math.floor(days / 365);
             const remainingDays = days % 365;
-            
             document.getElementById('years').textContent = years;
             document.getElementById('days').textContent = remainingDays;
             document.getElementById('hours').textContent = hours;
@@ -870,11 +678,8 @@
             document.getElementById('seconds').textContent = seconds;
             document.getElementById('totalDays').textContent = days;
         }
-
         setInterval(updateTimer, 1000);
         updateTimer();
-
-        // 生成星星背景
         function createStars() {
             const starsContainer = document.getElementById('stars');
             for (let i = 0; i < 150; i++) {
@@ -889,8 +694,6 @@
             }
         }
         createStars();
-
-        // 生成飘落爱心
         function createFloatingHearts() {
             const heartsContainer = document.getElementById('hearts');
             setInterval(() => {
@@ -901,23 +704,18 @@
                 heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
                 heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
                 heartsContainer.appendChild(heart);
-                
                 setTimeout(() => heart.remove(), 10000);
             }, 1500);
         }
         createFloatingHearts();
-
-        // 烟花效果
         const canvas = document.getElementById('fireworks');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
-
         class Particle {
             constructor(x, y, color) {
                 this.x = x;
@@ -931,7 +729,6 @@
                 this.decay = Math.random() * 0.015 + 0.01;
                 this.gravity = 0.15;
             }
-
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
@@ -940,7 +737,6 @@
                 this.vy *= 0.97;
                 this.life -= this.decay;
             }
-
             draw() {
                 ctx.save();
                 ctx.globalAlpha = this.life;
@@ -953,7 +749,6 @@
                 ctx.restore();
             }
         }
-
         class Firework {
             constructor(x, y, targetY, color) {
                 this.x = x;
@@ -967,16 +762,13 @@
                 this.particles = [];
                 this.trail = [];
             }
-
             update() {
                 if (!this.exploded) {
                     this.trail.push({x: this.x, y: this.y});
                     if (this.trail.length > 15) this.trail.shift();
-                    
                     this.x += this.vx;
                     this.y += this.vy;
                     this.vy += 0.25;
-
                     if (this.y <= this.targetY || this.vy >= 0) {
                         this.explode();
                     }
@@ -985,7 +777,6 @@
                     this.particles = this.particles.filter(p => p.life > 0);
                 }
             }
-
             explode() {
                 this.exploded = true;
                 const particleCount = 80 + Math.random() * 40;
@@ -997,7 +788,6 @@
                     }
                 }
             }
-
             draw() {
                 if (!this.exploded) {
                     ctx.save();
@@ -1007,7 +797,6 @@
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, 5, 0, Math.PI * 2);
                     ctx.fill();
-                    
                     this.trail.forEach((point, index) => {
                         ctx.globalAlpha = index / this.trail.length * 0.6;
                         ctx.beginPath();
@@ -1020,10 +809,8 @@
                 }
             }
         }
-
         let fireworks = [];
         const colors = ['#ff6b9d', '#feca57', '#ff9ff3', '#48dbfb', '#ff6348', '#a29bfe', '#fd79a8', '#ffeaa7'];
-
         function createFirework(x, y) {
             const startX = x || Math.random() * canvas.width;
             const startY = canvas.height;
@@ -1031,64 +818,40 @@
             const color = colors[Math.floor(Math.random() * colors.length)];
             fireworks.push(new Firework(startX, startY, targetY, color));
         }
-
         function animate() {
             ctx.fillStyle = 'rgba(15, 12, 41, 0.08)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-
             fireworks.forEach(fw => {
                 fw.update();
                 fw.draw();
             });
-
             fireworks = fireworks.filter(fw => !fw.exploded || fw.particles.length > 0);
-
             requestAnimationFrame(animate);
         }
-
         animate();
-
-        // 点击放烟�?        document.addEventListener('click', (e) => {
+        document.addEventListener('click', (e) => {
             if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'VIDEO' && !e.target.classList.contains('memory-photo')) {
                 createFirework(e.clientX, e.clientY);
             }
         });
-
-        // 自动放烟�?        setInterval(() => createFirework(), 3000);
-
-        // 惊喜弹窗
+        setInterval(() => createFirework(), 3000);
         function showSurprise() {
             const msg = document.getElementById('surpriseMessage');
             msg.classList.add('show');
-            
-            // 放一波烟�?            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 10; i++) {
                 setTimeout(() => createFirework(), i * 150);
             }
         }
-
         function closeSurprise() {
             const msg = document.getElementById('surpriseMessage');
             msg.classList.remove('show');
         }
-
-        // 页面加载完成后的欢迎烟花
         window.addEventListener('load', () => {
             setTimeout(() => {
                 for (let i = 0; i < 8; i++) {
                     setTimeout(() => createFirework(), i * 300);
                 }
             }, 800);
-        });
-
-        // 检查图片加�?        document.querySelectorAll('.memory-photo').forEach(img => {
-            img.onerror = function() {
-                console.error('图片加载失败:', this.src);
-                this.style.display = 'none';
-                const errorMsg = document.createElement('div');
-                errorMsg.style.cssText = 'color: #ff6b9d; padding: 20px; background: rgba(0,0,0,0.3); border-radius: 10px; margin: 10px 0;';
-                errorMsg.textContent = '照片加载�?..请确保照片文件存�?;
-                this.parentNode.insertBefore(errorMsg, this);
-            };
         });
     </script>
 </body>
